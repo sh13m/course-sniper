@@ -1,0 +1,26 @@
+[2024-05-09 16:43:02] [WARNING ] discord.ext.commands.bot: Privileged message content intent is missing, commands may not work as expected.
+[2024-05-09 16:43:02] [INFO    ] discord.client: logging in using static token
+[2024-05-09 16:43:03] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: 229635cf21f226a37484215eb74e4e03).
+Logged in as
+Course Mogger
+1226326016448790609
+------
+Waiting for bot to be ready...
+[09/05/2024 16:43:05]
+Checking...
+CS241 LEC 001
+CS240 LEC 002
+MATH239 LEC 003
+Spot Found
+[09/05/2024 16:43:55]
+Checking...
+CS241 LEC 001
+CS240 LEC 002
+MATH239 LEC 003
+Spot Found
+[09/05/2024 16:44:45]
+Checking...
+CS241 LEC 001
+CS240 LEC 002
+MATH239 LEC 003
+Spot Found
