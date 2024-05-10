@@ -1,3 +1,4 @@
 .env
 *.log
 save_pid.txt
+discord-bot
