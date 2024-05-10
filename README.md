@@ -8,21 +8,33 @@ Discord bot to aid in getting into courses that are full at the start of the ter
 
 ## Usage
 
-To start, clone [this repo](https://github.com/sh13m/course-sniper):
+To start, clone [this repo](https://github.com/sh13m/course-sniper)
 
 ```shell
 git clone https://github.com/sh13m/course-sniper
 cd course-sniper
 ```
 
-Create a venv for the discord bot and activate it
+Create a venv for the discord bot
 ```shell
 python -m venv discord-bot
-source discord-bot/bin/activate
 ```
 
 Install required dependencies in the venv
 
 ```shell
-pip install -r requirements.txt
+./discord-bot/bin/pip install -r requirements.txt 
 ```
+
+Run `run.sh` to start the bot, output will be passed to the `my.log` file
+
+```shell
+bash run.sh
+```
+
+Run `stop.sh` to stop the bot
+
+```shell
+bash stop.sh
+```
+
