@@ -24,5 +24,5 @@ source discord-bot/bin/activate
 Install required dependencies in the venv
 
 ```shell
-pip install requirements.txt
+pip install -r requirements.txt
 ```
