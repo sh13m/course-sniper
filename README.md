@@ -38,3 +38,9 @@ Run `stop.sh` to stop the bot
 bash stop.sh
 ```
 
+## Basic Configuration
+
+Make sure to have environment variables for the discord bot Token, the server notification channel ID and the user ID of yourself. Currently, courses are selected by modifying the variables in `course_sniper.py`. Be aware that the `SECTION` values don't match up the actual section of the course, but rather the row of the table on the course catalogue website.
+
+I will most likely change this in the future to be more user friendly if I ever stop being lazy and get to it.
+
