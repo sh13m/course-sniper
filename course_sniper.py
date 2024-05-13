@@ -8,11 +8,10 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 COURSE = [
-    ["CS", "241"],
-    ["CS", "240"],
-    ["MATH", "239"],
+    ["CS", "241", 1],
+    ["CS", "240", 3],
+    ["MATH", "239", 5],
 ]
-SECTION = [1, 3, 5]
 
 load_dotenv()
 
@@ -27,12 +26,12 @@ user_id = int(os.getenv('CMOGGER_USER_ID'))
 # Discord bot token
 TOKEN = os.getenv('CMOGGER_TOKEN')
 
-def check(COURSE, SECTION):
+def check(COURSE):
     boxes = []
     url = f"https://classes.uwaterloo.ca/cgi-bin/cgiwrap/infocour/salook.pl?level=under&sess=1245&subject={COURSE[0]}&cournum={COURSE[1]}"
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
-    line = soup.find_all("tr")[3].findChildren("tr")[SECTION]
+    line = soup.find_all("tr")[3].findChildren("tr")[COURSE[2]]
 
     for element in line:
         boxes.append(element.text.strip())
@@ -60,8 +59,8 @@ async def check_courses():
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
     print(f"[{dt_string}]")
     print("Checking...")
-    for i in range(len(SECTION)):
-        cl, sec = check(COURSE[i], SECTION[i])
+    for i in range(len(COURSE)):
+        cl, sec = check(COURSE[i])
         print(COURSE[i][0] + COURSE[i][1] + " " + sec)
         if cl:
             print("Spot Found") 
