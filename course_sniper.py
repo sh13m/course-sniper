@@ -7,11 +7,13 @@ from discord.ext import commands, tasks
 from bs4 import BeautifulSoup
 from datetime import datetime
 
-COURSE = [
-    ["CS", "241", 1],
-    ["CS", "240", 3],
-    ["MATH", "239", 5],
-    ["MATH", "239", 7],
+# Format is [SUBJECT] [CLASS CODE] [SECTION ROW] [TABLE ROW]
+COURSES = [
+    ["CS", "241", 1, 3],
+    ["CS", "240", 3, 3],
+    ["MATH", "239", 5, 3],
+    ["MATH", "239", 7, 3],
+    ["HEALTH", "105", 1, 2],
 ]
 
 load_dotenv()
@@ -35,7 +37,7 @@ def check(COURSE):
     url = f"https://classes.uwaterloo.ca/cgi-bin/cgiwrap/infocour/salook.pl?level=under&sess=1245&subject={COURSE[0]}&cournum={COURSE[1]}"
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
-    line = soup.find_all("tr")[3].findChildren("tr")[COURSE[2]]
+    line = soup.find_all("tr")[COURSE[3]].findChildren("tr")[COURSE[2]]
 
     for element in line:
         boxes.append(element.text.strip())
@@ -59,13 +61,13 @@ async def check_courses():
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
     print(f"[{dt_string}]")
     print("Checking...")
-    for i in range(len(COURSE)):
-        cl, sec, cnum = check(COURSE[i])
-        print(f"{COURSE[i][0]}{COURSE[i][1]} {sec} ({cnum})")
+    for i in range(len(COURSES)):
+        cl, sec, cnum = check(COURSES[i])
+        print(f"{COURSES[i][0]}{COURSES[i][1]} {sec} ({cnum})")
         if cl:
             print("Spot Found") 
             channel = bot.get_channel(notif_channel_id)
-            await channel.send(f"<@{user_id}> There's an open spot in {COURSE[i][0]}{COURSE[i][1]} {sec} ({cnum})")
+            await channel.send(f"<@{user_id}> There's an open spot in {COURSES[i][0]}{COURSES[i][1]} {sec} ({cnum})")
     sys.stdout.flush()
 
 @check_courses.before_loop
