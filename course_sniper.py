@@ -11,6 +11,7 @@ COURSE = [
     ["CS", "241", 1],
     ["CS", "240", 3],
     ["MATH", "239", 5],
+    ["MATH", "239", 7],
 ]
 
 load_dotenv()
@@ -26,6 +27,9 @@ user_id = int(os.getenv('CMOGGER_USER_ID'))
 # Discord bot token
 TOKEN = os.getenv('CMOGGER_TOKEN')
 
+def read_courses():
+    pass
+
 def check(COURSE):
     boxes = []
     url = f"https://classes.uwaterloo.ca/cgi-bin/cgiwrap/infocour/salook.pl?level=under&sess=1245&subject={COURSE[0]}&cournum={COURSE[1]}"
@@ -37,8 +41,8 @@ def check(COURSE):
         boxes.append(element.text.strip())
 
     
-    if int(boxes[7]) < int(boxes[6]): return True, boxes[1]
-    else: return False, boxes[1]
+    if int(boxes[7]) < int(boxes[6]): return True, boxes[1], boxes[0]
+    else: return False, boxes[1], boxes[0]
 
 @bot.event
 async def on_ready():
@@ -56,12 +60,12 @@ async def check_courses():
     print(f"[{dt_string}]")
     print("Checking...")
     for i in range(len(COURSE)):
-        cl, sec = check(COURSE[i])
-        print(COURSE[i][0] + COURSE[i][1] + " " + sec)
+        cl, sec, cnum = check(COURSE[i])
+        print(f"{COURSE[i][0]}{COURSE[i][1]} {sec} ({cnum})")
         if cl:
             print("Spot Found") 
             channel = bot.get_channel(notif_channel_id)
-            await channel.send(f"<@{user_id}> There's an open spot in {COURSE[i][0]}{COURSE[i][1]} {sec}")
+            await channel.send(f"<@{user_id}> There's an open spot in {COURSE[i][0]}{COURSE[i][1]} {sec} ({cnum})")
     sys.stdout.flush()
 
 @check_courses.before_loop
