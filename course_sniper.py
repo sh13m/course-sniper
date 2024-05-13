@@ -49,10 +49,6 @@ async def on_ready():
     sys.stdout.flush()
     check_courses.start()
 
-@bot.command()
-async def ping(ctx):
-    await ctx.message.author.send("Hello")
-
 @tasks.loop(seconds=69)
 async def check_courses():
     now = datetime.now()
